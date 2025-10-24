@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔤 Alphabet Magic Display</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div> 
+        <div class="bg-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="title-section">
+                    <div class="title-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h1 class="title">Alphabet Magic</h1>
+                    <p class="subtitle">Transform words into beautiful alphabet images • Voice input • ASL Learning</p>
+                </div>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-font"></i>
+                        <span id="totalWords">0</span>
+                        <small>Words</small>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-image"></i>
+                        <span id="totalImages">0</span>
+                        <small>Images</small>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-container">
+                    <div class="input-header">
+                        <div class="input-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div class="input-title">
+                            <h2>Type Your Words</h2>
+                            <p>Images will appear automatically after 1 second</p>
+                        </div>
+                    </div>
+                    
+                    <div class="input-wrapper">
+                        <div class="input-field">
+                            <input type="text" id="textInput" class="text-input" placeholder="Start typing any word...">
+                            <div class="input-decoration"></div>
+                        </div>
+                        <div class="input-actions">
+                            <button id="voiceBtn" class="btn btn-voice">
+                                <i class="fas fa-microphone"></i>
+                                Voice Input
+                            </button>
+                            <button id="showBtn" class="btn btn-primary">
+                                <i class="fas fa-bolt"></i>
+                                Show Now
+                            </button>
+                            <button id="clearBtn" class="btn btn-secondary">
+                                <i class="fas fa-trash-alt"></i>
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Words Gallery Section -->
+            <section class="words-section">
+                <div class="words-header">
+                    <div class="words-title-section">
+                        <div class="words-icon">
+                            <i class="fas fa-images"></i>
+                        </div>
+                        <div class="words-title-content">
+                            <h2 class="words-title">Your Word Gallery</h2>
+                            <p class="words-subtitle">All your words and their beautiful alphabet images</p>
+                        </div>
+                    </div>
+                    <div class="words-actions">
+                        <button id="aslBtn" class="btn-asl">
+                            <i class="fas fa-hands"></i>
+                            Learn ASL
+                        </button>
+                        <button id="exportBtn" class="btn-export">
+                            <i class="fas fa-download"></i>
+                            Export
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="wordsContainer" class="words-container">
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>Ready to Create Magic?</h3>
+                        <p>Type any word and watch it transform into beautiful alphabet images!</p>
+                        <div class="empty-features">
+                            <div class="feature">
+                                <i class="fas fa-bolt"></i>
+                                <span>Auto-display</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-history"></i>
+                                <span>History preserved</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-expand"></i>
+                                <span>Click to enlarge</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-content">
+                <div class="status-info">
+                    <div class="status-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <span id="statusText" class="status-text">
+                        Ready - Type some text to see alphabet images (auto-display after 1 second)
+                    </span>
+                </div>
+                <div class="status-indicators">
+                    <div class="indicator">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentTime">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading images...</p>
+        </div>
+    </div>
+
+    <!-- Word Modal -->
+    <div id="wordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Word Details</h3>
+                <button id="closeModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="modalImages" class="modal-images"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ASL Learning Modal -->
+    <div id="aslModal" class="modal">
+        <div class="modal-content asl-modal">
+            <div class="modal-header">
+                <h3 id="aslModalTitle">🤟 Learn American Sign Language</h3>
+                <button id="closeAslModal" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="asl-content">
+                        <div class="asl-input-section">
+                            <label for="aslInput" class="asl-label">
+                                <i class="fas fa-keyboard"></i>
+                                Enter a letter or word to learn its sign:
+                            </label>
+                            <div class="asl-input-wrapper">
+                                <input type="text" id="aslInput" class="asl-input" placeholder="Type a letter (A-Z) or word...">
+                                <button id="learnAslBtn" class="btn btn-primary">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Learn Sign
+                                </button>
+                            </div>
+                            <div class="asl-navigation">
+                                <button id="prevAslBtn" class="btn btn-secondary">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Previous
+                                </button>
+                                <button id="nextAslBtn" class="btn btn-secondary">
+                                    Next
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <button id="autoAslBtn" class="btn btn-success">
+                                    <i class="fas fa-play"></i>
+                                    Auto Learn
+                                </button>
+                            </div>
+                        </div>
+                    <div id="aslResult" class="asl-result">
+                        <div class="asl-placeholder">
+                            <i class="fas fa-hands"></i>
+                            <p>Enter a letter or word to learn its American Sign Language!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
